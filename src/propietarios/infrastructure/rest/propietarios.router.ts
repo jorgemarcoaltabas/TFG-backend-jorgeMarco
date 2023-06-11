@@ -33,7 +33,8 @@ router.post("/addPropietario",async(req:Request,res:Response)=>{
                 cif: req.body.cif,
                 correo: req.body.correo,
                 telefono: req.body.telefono,
-                poblacion: req.body.poblacion
+                poblacion: req.body.poblacion,
+                direccion: req.body.direccion
         }
         const nuevoPropietario:Propietario = await propietariosUseCases.addPropietario(propietario)
         res.json(nuevoPropietario)
@@ -49,7 +50,8 @@ router.put("/modifyPropietario/:id",async (req:Request,res:Response)=>{
                 cif: req.body.cif,
                 correo: req.body.correo,
                 telefono: req.body.telefono,
-                poblacion: req.body.poblacion
+                poblacion: req.body.poblacion,
+                direccion: req.body.direccion
         }
         const propietarioModificado:Propietario = await propietariosUseCases.modifyPropietario(propietario, Number(req.params.id))
         res.json(propietarioModificado)

@@ -12,7 +12,7 @@ export default class UsuariosRepositoryPostgres implements UsuarioRepository{
         
         if(usuario.nombre && usuario.contraseña){
             try{
-                await executeQuery(`insert into usuarios (nombre,apellidos,cif,correo,telefono,contraseña,rol) values ('${usuario.nombre}','${usuario.apellidos}','${usuario.cif}','${usuario.correo}',${usuario.telefono},'${hash(usuario.contraseña)}','${usuario.rol}')`)
+                await executeQuery(`insert into usuarios (nombre,apellidos,cif,correo,telefono,contraseña) values ('${usuario.nombre}','${usuario.apellidos}','${usuario.cif}','${usuario.correo}',${usuario.telefono},'${hash(usuario.contraseña)}')`)
 
                 const message: Message = {
                     text: 'Usuario creado correctamente'

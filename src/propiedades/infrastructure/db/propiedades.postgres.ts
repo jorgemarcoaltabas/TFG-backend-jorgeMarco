@@ -13,7 +13,9 @@ export default class PropiedadesRepositoryPostgres implements PropiedadesReposit
                 catastro:value.catastro,
                 municipio:value.municipio,
                 codigo_postal:value.codigo_postal,
-                estado:value.estado
+                estado:value.estado,
+                clave:value.clave,
+                actividad:value.actividad
             }
             propiedades.push(nuevaPropiedad)
         }
@@ -28,16 +30,16 @@ export default class PropiedadesRepositoryPostgres implements PropiedadesReposit
                 catastro:propiedadDB[0].catastro,
                 municipio:propiedadDB[0].municipio,
                 codigo_postal:propiedadDB[0].codigo_postal,
-                estado:propiedadDB[0].estado
+                estado:propiedadDB[0].estado,
+                clave:propiedadDB[0].clave,
+                actividad:propiedadDB[0].actividad
             }
             return propiedad;
         }
         throw new Error("No se ha podido recuperar la propiedad.");
     }
-    async addPropiedad(propiedad: Propiedad): Promise<Propiedad> {
-        console.log(propiedad);
-        
-        const id: any[] = await executeQuery(`insert into propiedades (direccion,catastro,municipio,codigo_postal,estado) values ('${propiedad.direccion}','${propiedad.catastro}','${propiedad.municipio}',${propiedad.codigo_postal},'${propiedad.estado}') RETURNING id`)
+    async addPropiedad(propiedad: Propiedad): Promise<Propiedad> {     
+        const id: any[] = await executeQuery(`insert into propiedades (direccion,catastro,municipio,codigo_postal,estado,clave,actividad) values ('${propiedad.direccion}','${propiedad.catastro}','${propiedad.municipio}',${propiedad.codigo_postal},'${propiedad.estado}','${propiedad.clave}','${propiedad.actividad}') RETURNING id`)
         try{
             const propiedadReturned: Propiedad = await this.getOnePropiedad(id[0].id)
             return propiedadReturned;
@@ -48,14 +50,16 @@ export default class PropiedadesRepositoryPostgres implements PropiedadesReposit
     }
     async modifyPropiedad(propiedad: Propiedad, id: Number): Promise<Propiedad> {
         try{
-            await executeQuery(`update propiedades set direccion = '${propiedad.direccion}',catastro = '${propiedad.catastro}',municipio = '${propiedad.municipio}',codigo_postal = ${propiedad.codigo_postal},estado = '${propiedad.estado}',`)
+            await executeQuery(`update propiedades set direccion = '${propiedad.direccion}',catastro = '${propiedad.catastro}',municipio = '${propiedad.municipio}',codigo_postal = ${propiedad.codigo_postal},estado = '${propiedad.estado}',clave ='${propiedad.clave}',actividad='${propiedad.actividad}'`)
             return{
                 id:id,
                 direccion:propiedad.direccion,
                 catastro:propiedad.catastro,
                 municipio:propiedad.municipio,
                 codigo_postal:propiedad.codigo_postal,
-                estado:propiedad.estado
+                estado:propiedad.estado,
+                clave:propiedad.clave,
+                actividad:propiedad.actividad
             }
         }catch(err){
             console.error(err);

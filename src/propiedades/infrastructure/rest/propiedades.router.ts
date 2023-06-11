@@ -3,12 +3,13 @@ import PropiedadesRepositoryPostgres from '../db/propiedades.postgres'
 import Propiedad from '../../domain/Propiedades'
 import PropiedadesRepository from '../../domain/Propietarios.repository'
 import PropiedadUseCases from '../../application/propiedades.usecases'
+import { isAuth, isAdmin } from '../../../context/security/auth'
 
 const router = express.Router();
 const propiedadesRepository:PropiedadesRepository = new PropiedadesRepositoryPostgres();
 const propiedadesUseCases: PropiedadUseCases = new PropiedadUseCases(propiedadesRepository)
 
-router.get("/getAll",async (req: Request,res:Response)=>{
+router.get("/getAll",isAuth,isAdmin,async (req: Request,res:Response)=>{
     try{
         const propiedades: Propiedad[] = await propiedadesUseCases.getAllPropiedades()
         res.json(propiedades);
@@ -33,7 +34,9 @@ router.post("/addPropiedad",async (req:Request,res:Response)=>{
                 catastro:req.body.catastro,
                 municipio:req.body.municipio,
                 codigo_postal:req.body.codigo_postal,
-                estado:req.body.estado
+                estado:req.body.estado,
+                clave:req.body.clave,
+                actividad:req.body.actividad
         }
         const nuevaPropiedad:Propiedad = await propiedadesUseCases.addPropiedad(propiedad)
         res.json(nuevaPropiedad)
@@ -49,7 +52,9 @@ router.put("/modifyPropiedad/:id",async (req: Request,res: Response)=>{
                 catastro:req.body.catastro,
                 municipio:req.body.municipio,
                 codigo_postal:req.body.codigo_postal,
-                estado:req.body.estado
+                estado:req.body.estado,
+                clave:req.body.clave,
+                actividad:req.body.actividad
         }
         const propiedadModificada:Propiedad = await propiedadesUseCases.modifyPropiedad(propiedad,Number(req.params.id))
         res.json(propiedadModificada)

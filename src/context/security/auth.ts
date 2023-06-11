@@ -36,7 +36,7 @@ const isAuth = (req: Request, response: Response, next: NextFunction) => {
 
 const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (req.body.auth.role && req.body.auth.role == "administrador") {
+    if (req.body.auth.rol && req.body.auth.rol == "administrador") {
       next();
     }
   } catch (err) {

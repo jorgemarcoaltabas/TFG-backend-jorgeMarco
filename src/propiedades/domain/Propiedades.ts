@@ -4,6 +4,7 @@ export default interface Propiedad {
   catastro: string;
   municipio: string;
   codigo_postal: number;
-  actividad?:"venta" | "alquiler"
-  estado?: "activo" | "inactivo";
+  estado: "activo" | "inactivo";
+  clave:string;
+  actividad:"venta" | "alquiler";
 }
