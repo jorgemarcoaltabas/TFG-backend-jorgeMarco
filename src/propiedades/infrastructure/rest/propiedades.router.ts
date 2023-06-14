@@ -9,7 +9,7 @@ const router = express.Router();
 const propiedadesRepository:PropiedadesRepository = new PropiedadesRepositoryPostgres();
 const propiedadesUseCases: PropiedadUseCases = new PropiedadUseCases(propiedadesRepository)
 
-router.get("/getAll",isAuth,isAdmin,async (req: Request,res:Response)=>{
+router.get("/getAll",async (req: Request,res:Response)=>{
     try{
         const propiedades: Propiedad[] = await propiedadesUseCases.getAllPropiedades()
         res.json(propiedades);
