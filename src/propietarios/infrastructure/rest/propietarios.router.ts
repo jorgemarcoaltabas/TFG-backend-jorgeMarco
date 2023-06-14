@@ -59,7 +59,7 @@ router.put("/modifyPropietario/:id",async (req:Request,res:Response)=>{
         console.error(err);
     }
 })
-router.delete("/deltePropietario/:id",async (req:Request,res:Response)=>{
+router.delete("/deletePropietario/:id",async (req:Request,res:Response)=>{
     try{
         const propietario:Propietario[] = await propietariosUseCases.deletePropietario(Number(req.params.id))
         res.json(propietario)

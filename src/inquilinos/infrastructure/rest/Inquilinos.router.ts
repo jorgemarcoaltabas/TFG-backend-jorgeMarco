@@ -57,7 +57,7 @@ router.put("/modifyInquilino/:id",async (req:Request,res:Response)=>{
         console.error(err);
     }
 })
-router.delete("/delteInquilino/:id",async (req:Request,res:Response)=>{
+router.delete("/deleteInquilino/:id",async (req:Request,res:Response)=>{
     try{
         const inquilinos:Inquilino[] = await inquilinosUseCases.deleteInquilino(Number(req.params.id))
         res.json(inquilinos)

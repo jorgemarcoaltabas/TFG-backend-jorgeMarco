@@ -57,7 +57,6 @@ router.post("/registrar", async (req:Request,res:Response)=>{
             correo:req.body.correo,
             telefono:req.body.telefono,
             contraseña:req.body.contraseña,
-            rol:req.body.rol
         }
         const result: Auth | Message = await usuariosUseCases.registrar(usuario)
         res.json(result)
